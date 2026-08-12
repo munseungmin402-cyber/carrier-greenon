@@ -11,11 +11,13 @@ const sourceFiles = [
   { source: "app.js", output: "app.js" },
   { source: "assets/carrier-hvac-logo.png", output: "assets/carrier-hvac-logo.png" },
   { source: "assets/carrier-favicon.png", output: "assets/carrier-favicon.png" },
+  { source: "assets/carrier-energy-mascot.png", output: "assets/carrier-energy-mascot.png" },
   { source: "assets/rewards/starbucks-americano.jpg", output: "assets/rewards/starbucks-americano.jpg" },
   { source: "assets/rewards/starbucks-tumbler.jpg", output: "assets/rewards/starbucks-tumbler.jpg" },
   { source: "assets/rewards/sungsimdang-zero-cookie.jpg", output: "assets/rewards/sungsimdang-zero-cookie.jpg" },
   { source: "assets/rewards/oral-b-io10.png", output: "assets/rewards/oral-b-io10.png" },
   { source: "assets/rewards/carrier-circulator.jpg", output: "assets/rewards/carrier-circulator.jpg" },
+  { source: "assets/rewards/carrier-air-purifier.jpg", output: "assets/rewards/carrier-air-purifier.jpg" },
 ];
 
 function requireEnvironmentVariable(name) {

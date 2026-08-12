@@ -7,5 +7,6 @@
 - 성심당 제로쿠키 18개입: [제품 구성 및 사진 확인 페이지](https://ohrosy39.tistory.com/394)
 - Oral-B iO Series 10: [Oral-B 공식 iO 가이드](https://oralb.com/en-us/iOguide/)
 - 캐리어 클라윈드 서큘레이터 KRFT-E006PRAW: [캐리어 공식 종합 카탈로그](https://www.carrier.co.kr/buy/catalog/2020%EC%A2%85%ED%95%A9%EC%B9%B4%ED%83%88%EB%A1%9C%EA%B7%B8_%EC%A0%84%EB%AC%B8%EC%A0%90.pdf), [제품 사진 확인 페이지](https://prod.danawa.com/info/?pcode=8115940)
+- 캐리어 클라윈드 공기청정기 AAPFV082HLW: [캐리어 공식 2024 종합 카탈로그](https://www.carrier.co.kr/buy/catalog/2024%20Carrier%20%EC%83%81%EB%B0%98%EA%B8%B0%20%EC%A2%85%ED%95%A9%20%EC%B9%B4%EB%8B%AC%EB%A1%9C%EA%B7%B8%20%EC%A0%84%EC%9E%90%EB%9E%9C%EB%93%9C.pdf), [제품 사진 확인 페이지](https://m.lotteimall.com/goods/viewGoodsDetail.lotte?goods_no=1632885872)
 
 각 상표와 제품 이미지의 권리는 해당 권리자에게 있습니다. 이 프로젝트에서는 리워드 상품을 식별하는 목적으로만 사용합니다.

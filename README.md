@@ -9,8 +9,10 @@ Carrier 에어컨 사용자를 위한 ESG 친환경 냉방 미션·GREEN POINT·
 - 26~28°C GREEN MISSION 참여와 진행 기록
 - 미션 성공 포인트 지급과 GREEN WALLET 내역
 - 스타벅스·성심당·Oral-B·Carrier 실제 제품 사진을 적용한 GREEN REWARD SHOP
+- Carrier 공기청정기 3,000P 리워드와 동일 크기 상품 미리보기
 - Supabase Auth, 사용자별 데이터 분리, RLS 보호
 - Carrier Navy·Steel Blue 기반의 입체적인 모바일 우선 반응형 UI
+- 냉동공조 마스코트, 커스텀 마우스 커서, 가상 에어컨 바람 모션
 
 ## 기술 구성
 

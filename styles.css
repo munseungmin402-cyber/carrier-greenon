@@ -259,6 +259,74 @@ main {
   line-height: 1.7;
 }
 
+/* 제공 이미지를 기반으로 만든 냉동공조 마스코트를 메인 히어로의 대표 비주얼로 사용합니다. */
+.hero-mascot {
+  position: absolute;
+  z-index: 1;
+  right: 50%;
+  bottom: 10px;
+  width: min(68vw, 244px);
+  aspect-ratio: 1;
+  transform: translateX(50%);
+  animation: hero-mascot-float 5.2s ease-in-out infinite;
+}
+
+.hero-mascot img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 36px;
+  filter: drop-shadow(0 22px 28px rgba(2, 24, 54, 0.35));
+}
+
+.hero-mascot-glow {
+  position: absolute;
+  z-index: 1;
+  inset: 16% 8% 9%;
+  background: rgba(138, 215, 255, 0.38);
+  border-radius: 50%;
+  filter: blur(24px);
+  animation: hero-mascot-glow 3.1s ease-in-out infinite alternate;
+}
+
+.hero-mascot-orbit {
+  position: absolute;
+  z-index: 3;
+  border: 1px solid rgba(222, 244, 255, 0.48);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-mascot .orbit-one {
+  inset: 12% 1% 18%;
+  transform: rotate(-18deg);
+  animation: hero-orbit-spin 9s linear infinite;
+}
+
+.hero-mascot .orbit-two {
+  inset: 18% -3% 12%;
+  transform: rotate(24deg);
+  animation: hero-orbit-spin 12s linear infinite reverse;
+}
+
+@keyframes hero-mascot-float {
+  0%,
+  100% { transform: translateX(50%) translateY(0); }
+  50% { transform: translateX(50%) translateY(-8px); }
+}
+
+@keyframes hero-mascot-glow {
+  from { opacity: 0.55; transform: scale(0.94); }
+  to { opacity: 0.95; transform: scale(1.05); }
+}
+
+@keyframes hero-orbit-spin {
+  to { rotate: 360deg; }
+}
+
 /* 작은 휴대폰에서도 긴 한글 인사말이 카드 밖으로 잘리지 않도록 줄바꿈 폭을 보장합니다. */
 @media (max-width: 420px) {
   .hero-copy {
@@ -1346,6 +1414,56 @@ main {
   line-height: 1.6;
 }
 
+.view-heading-aside {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.energy-solution-signature {
+  position: relative;
+  display: block;
+  min-width: 150px;
+  padding: 7px 0 7px 38px;
+  color: var(--steel-700);
+  font-family: Nunito, Pretendard, sans-serif;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.energy-solution-signature::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue-300), var(--blue-700));
+  box-shadow: 0 4px 9px rgba(11, 46, 91, 0.2);
+  content: "";
+}
+
+.energy-solution-signature small,
+.energy-solution-signature strong {
+  display: block;
+}
+
+.energy-solution-signature small {
+  color: var(--blue-500);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.energy-solution-signature strong {
+  margin-top: 2px;
+  color: var(--blue-900);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
 .simulation-badge {
   display: inline-flex;
   flex: 0 0 auto;
@@ -1429,6 +1547,10 @@ main {
   box-shadow: 0 19px 30px rgba(35, 100, 145, 0.17);
 }
 
+.aircon-device-card:not(.is-off) .device-unit {
+  animation: aircon-device-breathe 3.2s ease-in-out infinite;
+}
+
 .carrier-label {
   position: absolute;
   top: 17px;
@@ -1465,32 +1587,77 @@ main {
   opacity: 0.75;
 }
 
+.aircon-device-card:not(.is-off) .device-vent {
+  animation: aircon-vent-glow 1.6s ease-in-out infinite alternate;
+}
+
 .air-flow {
   position: absolute;
   z-index: 1;
-  bottom: 29px;
+  bottom: 18px;
   width: 80px;
-  height: 34px;
-  border-bottom: 2px solid rgba(21, 147, 238, 0.35);
+  height: 52px;
+  border-bottom: 3px solid rgba(45, 166, 232, 0.66);
   border-radius: 50%;
+  opacity: 0;
+  filter: drop-shadow(0 9px 7px rgba(66, 180, 236, 0.3));
+  transform: translateY(-12px) scaleX(0.62) rotate(var(--flow-angle, 0deg));
+  animation: cooling-air-stream 1.75s ease-out infinite;
 }
 
 .air-flow-one {
   left: 28%;
-  transform: rotate(18deg);
+  --flow-angle: 18deg;
 }
 
 .air-flow-two {
   left: 43%;
+  animation-delay: 0.36s;
 }
 
 .air-flow-three {
   right: 23%;
-  transform: rotate(-18deg);
+  --flow-angle: -18deg;
+  animation-delay: 0.72s;
+}
+
+.aircon-device-card[data-fan-motion="약풍"] .air-flow {
+  animation-duration: 2.2s;
+}
+
+.aircon-device-card[data-fan-motion="중풍"] .air-flow {
+  animation-duration: 1.4s;
+}
+
+.aircon-device-card[data-fan-motion="강풍"] .air-flow {
+  animation-duration: 0.95s;
 }
 
 .aircon-device-card.is-off .air-flow {
   display: none;
+}
+
+@keyframes aircon-device-breathe {
+  0%,
+  100% { box-shadow: 0 19px 30px rgba(35, 100, 145, 0.17); transform: translateY(0); }
+  50% { box-shadow: 0 24px 38px rgba(35, 132, 190, 0.25); transform: translateY(-2px); }
+}
+
+@keyframes aircon-vent-glow {
+  from { border-color: #8fa6b4; opacity: 0.62; }
+  to { border-color: #4fa8d5; opacity: 1; }
+}
+
+@keyframes cooling-air-stream {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px) scaleX(0.62) rotate(var(--flow-angle, 0deg));
+  }
+  32% { opacity: 0.85; }
+  100% {
+    opacity: 0;
+    transform: translateY(23px) scaleX(1.18) rotate(var(--flow-angle, 0deg));
+  }
 }
 
 .device-title-row {
@@ -2701,34 +2868,25 @@ main {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  border-radius: 18px;
   filter: drop-shadow(0 12px 13px rgba(11, 46, 91, 0.2));
 }
 
 .reward-product-art.visual-coffee .reward-product-image,
 .reward-dialog-art.visual-coffee .reward-dialog-image,
 .reward-product-art.visual-cookie .reward-product-image,
-.reward-dialog-art.visual-cookie .reward-dialog-image {
-  object-fit: cover;
-}
-
-.reward-product-art.visual-coffee .reward-product-image,
-.reward-dialog-art.visual-coffee .reward-dialog-image {
-  object-position: center 18%;
-}
-
-.reward-product-art.visual-cookie .reward-product-image,
-.reward-dialog-art.visual-cookie .reward-dialog-image {
-  object-position: center;
-}
-
+.reward-dialog-art.visual-cookie .reward-dialog-image,
 .reward-product-art.visual-tumbler .reward-product-image,
 .reward-dialog-art.visual-tumbler .reward-dialog-image,
 .reward-product-art.visual-brush .reward-product-image,
 .reward-dialog-art.visual-brush .reward-dialog-image,
 .reward-product-art.visual-fan .reward-product-image,
-.reward-dialog-art.visual-fan .reward-dialog-image {
+.reward-dialog-art.visual-fan .reward-dialog-image,
+.reward-product-art.visual-purifier .reward-product-image,
+.reward-dialog-art.visual-purifier .reward-dialog-image {
   width: 88%;
   height: 88%;
+  object-fit: contain;
 }
 
 .reward-product-image[hidden],
@@ -2765,6 +2923,11 @@ main {
 .reward-product-art.visual-fan,
 .reward-dialog-art.visual-fan {
   background: linear-gradient(145deg, #f7fafc, #d4e0e8);
+}
+
+.reward-product-art.visual-purifier,
+.reward-dialog-art.visual-purifier {
+  background: linear-gradient(145deg, #f8fbfd, #d9e6ee);
 }
 
 .reward-product-tag {
@@ -3889,6 +4052,92 @@ main {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 7px 14px rgba(11, 46, 91, 0.12);
 }
 
+/* 데스크톱의 정밀 포인터에서만 보이는 냉기 링 커서입니다. */
+.motion-cursor {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+.motion-cursor.is-visible {
+  opacity: 1;
+}
+
+.motion-cursor-ring,
+.motion-cursor-core {
+  position: fixed;
+  top: -100px;
+  left: -100px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.motion-cursor-ring {
+  width: 30px;
+  height: 30px;
+  background: rgba(208, 240, 255, 0.11);
+  border: 1px solid rgba(45, 130, 191, 0.68);
+  box-shadow: 0 0 0 4px rgba(140, 189, 221, 0.1), 0 5px 16px rgba(11, 46, 91, 0.2);
+  transition: width 160ms ease, height 160ms ease, background 160ms ease, border-color 160ms ease, transform 120ms ease;
+}
+
+.motion-cursor-core {
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle at 30% 25%, #ffffff 0 13%, #78c6ea 32%, var(--blue-700) 100%);
+  box-shadow: 0 0 11px rgba(75, 180, 229, 0.8);
+}
+
+.motion-cursor.is-interactive .motion-cursor-ring {
+  width: 46px;
+  height: 46px;
+  background: rgba(45, 130, 191, 0.16);
+  border-color: rgba(11, 46, 91, 0.82);
+}
+
+.motion-cursor.is-pressed .motion-cursor-ring {
+  transform: translate(-50%, -50%) scale(0.72);
+}
+
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.has-motion-cursor,
+  html.has-motion-cursor * {
+    cursor: none !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .view-heading {
+    gap: 10px;
+  }
+
+  .view-heading-aside {
+    gap: 6px;
+  }
+
+  .energy-solution-signature {
+    min-width: 108px;
+    padding-left: 24px;
+  }
+
+  .energy-solution-signature::before {
+    width: 18px;
+  }
+
+  .energy-solution-signature strong {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
+
+  .energy-solution-signature small {
+    font-size: 7px;
+  }
+}
+
 @media (min-width: 640px) {
   .topbar,
   main {
@@ -3908,6 +4157,19 @@ main {
     width: 220px;
     height: 220px;
     transform: none;
+  }
+
+  .hero-mascot {
+    right: 6%;
+    bottom: 24px;
+    width: min(35vw, 300px);
+    transform: none;
+  }
+
+  @keyframes hero-mascot-float {
+    0%,
+    100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
   }
 
   .earth {
@@ -4126,6 +4388,12 @@ main {
     transform: scale(1.2);
   }
 
+  .hero-mascot {
+    right: 7%;
+    bottom: 28px;
+    width: 330px;
+  }
+
   .overview-section,
   .mission-preview,
   .quick-guide {
@@ -4280,5 +4548,7 @@ main {
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

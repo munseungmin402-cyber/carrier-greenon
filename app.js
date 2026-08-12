@@ -5,6 +5,8 @@ const VIEW_NAMES = ["home", "mission", "wallet", "reward", "my"];
 const pageViews = document.querySelectorAll("[data-view]");
 const navigationButtons = document.querySelectorAll("[data-view-target]");
 const shortcutButtons = document.querySelectorAll("[data-go-view]");
+const brandHomeLink = document.querySelector(".brand");
+const motionCursor = document.querySelector("#motion-cursor");
 
 // 실제 에어컨 API 대신 사용하는 초기 시뮬레이션 데이터입니다.
 // Object.freeze로 원본이 실수로 바뀌지 않게 보호하고, 초기화할 때 복사해서 사용합니다.
@@ -91,6 +93,10 @@ const REWARD_PRODUCT_IMAGES = Object.freeze({
   fan: Object.freeze({
     src: "assets/rewards/carrier-circulator.jpg",
     alt: "캐리어 클라윈드 서큘레이터 KRFT-E006PRAW 제품 사진",
+  }),
+  purifier: Object.freeze({
+    src: "assets/rewards/carrier-air-purifier.jpg",
+    alt: "캐리어 클라윈드 공기청정기 AAPFV082HLW 제품 사진",
   }),
 });
 
@@ -1427,6 +1433,8 @@ function renderAirconState() {
 
   airconElements.deviceCard.classList.toggle("is-alert", condition.isAlert);
   airconElements.deviceCard.classList.toggle("is-off", !airconState.power);
+  // CSS 바람 모션이 현재 시뮬레이션 풍량에 맞춰 속도를 바꿀 수 있도록 상태를 전달합니다.
+  airconElements.deviceCard.dataset.fanMotion = airconState.fan;
   airconElements.deviceDisplay.textContent = airconState.sensorError
     ? "--°"
     : airconState.power
@@ -1781,6 +1789,56 @@ async function updateAirconState(action) {
 }
 
 /**
+ * 마우스를 사용할 수 있는 기기에서만 로고 색상의 커서 모션을 켭니다.
+ * 터치 기기와 모션 감소 설정에서는 기본 커서를 유지해 접근성을 해치지 않습니다.
+ */
+function initializeMotionCursor() {
+  const canUseFinePointer = window.matchMedia("(pointer: fine)").matches;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!motionCursor || !canUseFinePointer || prefersReducedMotion) return;
+
+  const cursorCore = motionCursor.querySelector(".motion-cursor-core");
+  const cursorRing = motionCursor.querySelector(".motion-cursor-ring");
+  let pointerX = -100;
+  let pointerY = -100;
+  let ringX = -100;
+  let ringY = -100;
+
+  document.documentElement.classList.add("has-motion-cursor");
+
+  // 작은 중심점은 마우스를 즉시 따라가고, 바깥 고리는 조금 늦게 이동해 부드러운 깊이감을 만듭니다.
+  window.addEventListener("pointermove", (event) => {
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    cursorCore.style.left = `${pointerX}px`;
+    cursorCore.style.top = `${pointerY}px`;
+    motionCursor.classList.add("is-visible");
+  });
+
+  window.addEventListener("pointerdown", () => motionCursor.classList.add("is-pressed"));
+  window.addEventListener("pointerup", () => motionCursor.classList.remove("is-pressed"));
+  document.documentElement.addEventListener("mouseleave", () => motionCursor.classList.remove("is-visible"));
+
+  document.addEventListener("pointerover", (event) => {
+    const target = event.target instanceof Element
+      ? event.target.closest("a, button, input, select, textarea, [role='button']")
+      : null;
+    motionCursor.classList.toggle("is-interactive", Boolean(target));
+  });
+
+  const drawCursorRing = () => {
+    ringX += (pointerX - ringX) * 0.18;
+    ringY += (pointerY - ringY) * 0.18;
+    cursorRing.style.left = `${ringX}px`;
+    cursorRing.style.top = `${ringY}px`;
+    window.requestAnimationFrame(drawCursorRing);
+  };
+
+  window.requestAnimationFrame(drawCursorRing);
+}
+
+/**
  * 선택한 화면만 보여 주고 하단 내비게이션의 활성 상태를 함께 바꿉니다.
  * 구현되지 않은 화면은 안내 상태를, 구현된 화면은 실제 기능을 그대로 보여 줍니다.
  *
@@ -1822,6 +1880,12 @@ function showView(viewName, updateHash = true) {
   // 화면이 바뀔 때 상단부터 내용을 확인할 수 있게 이동합니다.
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+// 어느 화면에서든 왼쪽 상단 Carrier 로고를 누르면 홈 화면으로 돌아갑니다.
+brandHomeLink?.addEventListener("click", (event) => {
+  event.preventDefault();
+  showView("home");
+});
 
 // 하단 내비게이션 버튼을 누르면 연결된 화면으로 이동합니다.
 navigationButtons.forEach((button) => {
@@ -1915,6 +1979,7 @@ window.addEventListener("pagehide", () => {
 // 주소에 #mission처럼 화면 이름이 있으면 새로고침 후에도 해당 화면을 보여 줍니다.
 const initialView = window.location.hash.replace("#", "");
 showView(initialView || "home", false);
+initializeMotionCursor();
 
 // 앱을 처음 열었을 때 샘플 날씨와 가상 에어컨 데이터를 즉시 보여 준 뒤 실시간 날씨를 요청합니다.
 renderWeatherState();

@@ -43,17 +43,18 @@
               <p class="hero-description">에어컨을 똑똑하게 사용하고 친환경 리워드를 모아보세요.</p>
             </div>
 
-            <div class="earth-illustration" aria-hidden="true">
-              <span class="orbit orbit-one"></span>
-              <span class="orbit orbit-two"></span>
-              <div class="earth">
-                <span class="land land-one"></span>
-                <span class="land land-two"></span>
-                <span class="face">˘‿˘</span>
-              </div>
-              <span class="spark spark-one">✦</span>
-              <span class="spark spark-two">✦</span>
-              <span class="leaf">◆</span>
+            <div class="hero-mascot" aria-hidden="true">
+              <span class="hero-mascot-glow"></span>
+              <img
+                src="assets/carrier-energy-mascot.png"
+                alt=""
+                width="1254"
+                height="1254"
+                fetchpriority="high"
+                decoding="async"
+              />
+              <span class="hero-mascot-orbit orbit-one"></span>
+              <span class="hero-mascot-orbit orbit-two"></span>
             </div>
           </div>
 
@@ -142,7 +143,10 @@
               <h1 id="mission-title">GREEN MISSION</h1>
               <p>가상 에어컨 데이터로 오늘의 친환경 냉방 습관에 도전해요.</p>
             </div>
-            <span class="simulation-badge"><span aria-hidden="true"></span> SIMULATION</span>
+            <div class="view-heading-aside">
+              <span class="energy-solution-signature"><small>Carrier</small><strong>Energy Solution</strong></span>
+              <span class="simulation-badge"><span aria-hidden="true"></span> SIMULATION</span>
+            </div>
           </div>
 
           <section class="today-mission-card" id="today-mission-card" aria-labelledby="today-mission-title">
@@ -380,7 +384,10 @@
               <h1 id="wallet-title">GREEN WALLET</h1>
               <p>지구를 위한 작은 실천이 GREEN POINT로 차곡차곡 쌓여요.</p>
             </div>
-            <span class="temporary-data-badge">Supabase 저장</span>
+            <div class="view-heading-aside">
+              <span class="energy-solution-signature"><small>Carrier</small><strong>Energy Solution</strong></span>
+              <span class="temporary-data-badge">Supabase 저장</span>
+            </div>
           </div>
 
           <section class="wallet-balance-card" aria-labelledby="wallet-balance-title">
@@ -447,7 +454,10 @@
               <h1 id="reward-title">GREEN REWARD SHOP</h1>
               <p>친환경 미션으로 모은 포인트를 기분 좋은 리워드로 바꿔보세요.</p>
             </div>
-            <span class="temporary-data-badge">Supabase 상품</span>
+            <div class="view-heading-aside">
+              <span class="energy-solution-signature"><small>Carrier</small><strong>Energy Solution</strong></span>
+              <span class="temporary-data-badge">Supabase 상품</span>
+            </div>
           </div>
 
           <section class="shop-hero-card" aria-labelledby="shop-hero-title">
@@ -501,7 +511,10 @@
               <h1 id="my-title">MY GREEN</h1>
               <p>나의 친환경 냉방 활동과 성장 기록을 한눈에 확인해요.</p>
             </div>
-            <span class="temporary-data-badge" id="auth-connection-badge">Supabase 연결 중</span>
+            <div class="view-heading-aside">
+              <span class="energy-solution-signature"><small>Carrier</small><strong>Energy Solution</strong></span>
+              <span class="temporary-data-badge" id="auth-connection-badge">Supabase 연결 중</span>
+            </div>
           </div>
 
           <section class="auth-card" id="auth-card" aria-labelledby="auth-title">
@@ -671,6 +684,11 @@
           <span>MY</span>
         </button>
       </nav>
+    </div>
+
+    <div class="motion-cursor" id="motion-cursor" aria-hidden="true">
+      <span class="motion-cursor-ring"></span>
+      <span class="motion-cursor-core"></span>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.8/dist/umd/supabase.min.js" crossorigin="anonymous" defer></script>
