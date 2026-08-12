@@ -4111,6 +4111,17 @@ main {
 }
 
 @media (max-width: 520px) {
+  .aircon-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .aircon-section-heading > p {
+    max-width: none;
+    text-align: left;
+  }
+
   .view-heading {
     gap: 10px;
   }
