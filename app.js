@@ -7,6 +7,111 @@ const navigationButtons = document.querySelectorAll("[data-view-target]");
 const shortcutButtons = document.querySelectorAll("[data-go-view]");
 const brandHomeLink = document.querySelector(".brand");
 const motionCursor = document.querySelector("#motion-cursor");
+const appShell = document.querySelector(".app-shell");
+const introElements = {
+  overlay: document.querySelector("#site-intro"),
+  video: document.querySelector("#site-intro-video"),
+  progressBar: document.querySelector("#site-intro-progress-bar"),
+  soundButton: document.querySelector("#intro-sound-button"),
+  skipButton: document.querySelector("#intro-skip-button"),
+};
+const INTRO_SESSION_KEY = "carrier-greenon-intro-seen";
+let introFallbackTimer = null;
+
+/**
+ * 인트로 영상을 닫고 기존 홈페이지를 활성화합니다.
+ * 영상이 끝나거나 건너뛰기를 눌렀을 때 항상 같은 정리 절차를 거쳐 화면이 멈추지 않게 합니다.
+ *
+ * @param {boolean} animate 부드러운 페이드 전환을 사용할지 여부
+ */
+function enterHomepage(animate = true) {
+  const { overlay, video } = introElements;
+
+  window.clearTimeout(introFallbackTimer);
+  document.body.classList.remove("intro-pending");
+  appShell?.removeAttribute("inert");
+  appShell?.removeAttribute("aria-hidden");
+
+  try {
+    window.sessionStorage.setItem(INTRO_SESSION_KEY, "true");
+  } catch (error) {
+    // 저장 공간을 차단한 브라우저에서도 인트로 종료와 홈페이지 이용은 정상 동작해야 합니다.
+    console.info("인트로 재생 상태를 저장하지 못했습니다.", error);
+  }
+
+  if (!overlay) return;
+
+  video?.pause();
+  overlay.setAttribute("aria-hidden", "true");
+
+  if (!animate) {
+    overlay.hidden = true;
+    return;
+  }
+
+  overlay.classList.add("is-leaving");
+  window.setTimeout(() => {
+    overlay.hidden = true;
+  }, 680);
+}
+
+/** 첫 진입 세션에만 제공된 MP4를 자동 재생하고 종료 후 홈 화면으로 연결합니다. */
+function initializeIntroExperience() {
+  const { overlay, video, progressBar, soundButton, skipButton } = introElements;
+  if (!overlay || !video) {
+    document.body.classList.remove("intro-pending");
+    return;
+  }
+
+  let hasSeenIntro = false;
+  try {
+    hasSeenIntro = window.sessionStorage.getItem(INTRO_SESSION_KEY) === "true";
+  } catch (error) {
+    console.info("인트로 재생 상태를 확인하지 못했습니다.", error);
+  }
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (hasSeenIntro || prefersReducedMotion) {
+    enterHomepage(false);
+    return;
+  }
+
+  appShell?.setAttribute("inert", "");
+  appShell?.setAttribute("aria-hidden", "true");
+
+  video.addEventListener("timeupdate", () => {
+    if (!progressBar || !Number.isFinite(video.duration) || video.duration <= 0) return;
+    progressBar.style.width = `${Math.min(100, (video.currentTime / video.duration) * 100)}%`;
+  });
+
+  video.addEventListener("loadedmetadata", () => {
+    window.clearTimeout(introFallbackTimer);
+    const durationMilliseconds = Number.isFinite(video.duration) ? video.duration * 1000 : 30000;
+    introFallbackTimer = window.setTimeout(() => enterHomepage(), durationMilliseconds + 4000);
+  }, { once: true });
+
+  video.addEventListener("ended", () => enterHomepage(), { once: true });
+  video.addEventListener("error", () => {
+    window.setTimeout(() => enterHomepage(), 300);
+  }, { once: true });
+
+  soundButton?.addEventListener("click", () => {
+    video.muted = !video.muted;
+    soundButton.setAttribute("aria-pressed", String(!video.muted));
+    soundButton.lastChild.textContent = video.muted ? " 소리 켜기" : " 소리 끄기";
+  });
+
+  skipButton?.addEventListener("click", () => enterHomepage());
+  overlay.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") enterHomepage();
+  });
+
+  introFallbackTimer = window.setTimeout(() => enterHomepage(), 30000);
+  video.play().catch(() => {
+    // 일부 절전 환경에서는 자동재생이 보류될 수 있어 사용자가 영상이나 버튼을 누르면 다시 시도합니다.
+    overlay.addEventListener("pointerdown", () => video.play().catch(() => {}), { once: true });
+  });
+}
 
 // 실제 에어컨 API 대신 사용하는 초기 시뮬레이션 데이터입니다.
 // Object.freeze로 원본이 실수로 바뀌지 않게 보호하고, 초기화할 때 복사해서 사용합니다.
@@ -1978,6 +2083,7 @@ window.addEventListener("pagehide", () => {
 
 // 주소에 #mission처럼 화면 이름이 있으면 새로고침 후에도 해당 화면을 보여 줍니다.
 const initialView = window.location.hash.replace("#", "");
+initializeIntroExperience();
 showView(initialView || "home", false);
 initializeMotionCursor();
 

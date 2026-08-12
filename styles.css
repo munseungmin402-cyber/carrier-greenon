@@ -61,6 +61,127 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body.intro-pending {
+  overflow: hidden;
+}
+
+/* 첫 방문에서는 사용자가 제공한 브랜드 영상을 화면 전체에 재생한 뒤 기존 홈으로 연결합니다. */
+.site-intro {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  background: #031327;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.65s ease, visibility 0.65s ease;
+}
+
+.site-intro[hidden] {
+  display: none;
+}
+
+.site-intro.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.site-intro-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #031327;
+}
+
+.site-intro-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(3, 19, 39, 0.04) 55%, rgba(3, 19, 39, 0.52) 100%);
+  pointer-events: none;
+}
+
+.site-intro-controls {
+  position: absolute;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(28px, calc(env(safe-area-inset-bottom) + 18px));
+  left: max(18px, env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.intro-sound-button,
+.intro-skip-button {
+  min-height: 44px;
+  padding: 0 17px;
+  color: #f1f9ff;
+  background: rgba(4, 35, 68, 0.66);
+  border: 1px solid rgba(218, 241, 255, 0.5);
+  border-radius: 999px;
+  box-shadow: 0 10px 28px rgba(0, 12, 28, 0.24);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.intro-sound-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.intro-skip-button {
+  color: var(--blue-900);
+  background: rgba(239, 249, 255, 0.94);
+  font-weight: 800;
+}
+
+.intro-sound-button:hover,
+.intro-sound-button:focus-visible,
+.intro-skip-button:hover,
+.intro-skip-button:focus-visible {
+  outline: 3px solid rgba(170, 224, 255, 0.5);
+  outline-offset: 2px;
+  transform: translateY(-2px);
+}
+
+.site-intro-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.site-intro-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #72c7f2, #dff7ff);
+  box-shadow: 0 0 14px rgba(126, 211, 255, 0.7);
+  transition: width 0.12s linear;
+}
+
+@media (max-width: 640px) {
+  .site-intro-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .intro-sound-button {
+    align-self: flex-start;
+  }
+
+  .intro-skip-button {
+    width: 100%;
+  }
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;
@@ -316,6 +437,95 @@ main {
   inset: 18% -3% 12%;
   transform: rotate(24deg);
   animation: hero-orbit-spin 12s linear infinite reverse;
+}
+
+/* 원본 일러스트는 유지하고 눈꺼풀·볼·미소 레이어만 더해 표정이 살아 움직이게 합니다. */
+.mascot-face-motion {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mascot-eyelid {
+  position: absolute;
+  top: 42.4%;
+  width: 4.4%;
+  height: 4.2%;
+  background: linear-gradient(180deg, #dff8ff, #c8edfb);
+  border-bottom: 1.5px solid rgba(8, 57, 96, 0.85);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scaleY(0.18);
+  animation: mascot-blink 5.4s ease-in-out infinite;
+}
+
+.mascot-eyelid-left {
+  left: 43.1%;
+}
+
+.mascot-eyelid-right {
+  left: 52.5%;
+  animation-delay: 0.04s;
+}
+
+.mascot-cheek {
+  position: absolute;
+  top: 47.3%;
+  width: 4.7%;
+  aspect-ratio: 1.5;
+  background: radial-gradient(ellipse, rgba(255, 130, 151, 0.5), transparent 68%);
+  border-radius: 50%;
+  animation: mascot-cheek-pulse 3.8s ease-in-out infinite;
+}
+
+.mascot-cheek-left {
+  left: 40.3%;
+}
+
+.mascot-cheek-right {
+  left: 56.2%;
+  animation-delay: 0.16s;
+}
+
+.mascot-smile {
+  position: absolute;
+  top: 46.2%;
+  left: 48.2%;
+  width: 4.2%;
+  height: 2.7%;
+  border-bottom: 1.5px solid rgba(5, 50, 86, 0.88);
+  border-radius: 0 0 50% 50%;
+  transform-origin: 50% 100%;
+  animation: mascot-smile-talk 4.6s ease-in-out infinite;
+}
+
+@keyframes mascot-blink {
+  0%,
+  44%,
+  49%,
+  83%,
+  88%,
+  100% { opacity: 0; transform: scaleY(0.18); }
+  46%,
+  47%,
+  85%,
+  86% { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes mascot-cheek-pulse {
+  0%,
+  100% { opacity: 0.48; transform: scale(0.9); }
+  50% { opacity: 0.82; transform: scale(1.14); }
+}
+
+@keyframes mascot-smile-talk {
+  0%,
+  35%,
+  100% { transform: translateY(0) scaleX(1); }
+  42% { transform: translateY(1px) scaleX(0.82); }
+  49% { transform: translateY(-1px) scaleX(1.16); }
+  56% { transform: translateY(0) scaleX(0.92); }
 }
 
 @keyframes hero-mascot-float {

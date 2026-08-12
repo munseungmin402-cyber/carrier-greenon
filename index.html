@@ -12,7 +12,29 @@
     <link rel="icon" type="image/png" href="assets/carrier-favicon.png" />
     <link rel="stylesheet" href="greenon-styles.css" />
   </head>
-  <body>
+  <body class="intro-pending">
+    <section class="site-intro" id="site-intro" aria-label="Carrier GreenON 시작 영상">
+      <video
+        class="site-intro-video"
+        id="site-intro-video"
+        src="assets/videos/carrier-greenon-intro.mp4"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+        aria-label="Carrier GreenON 소개 영상"
+      ></video>
+      <div class="site-intro-shade" aria-hidden="true"></div>
+      <div class="site-intro-controls">
+        <button class="intro-sound-button" id="intro-sound-button" type="button" aria-pressed="false">
+          <span aria-hidden="true">♪</span>
+          소리 켜기
+        </button>
+        <button class="intro-skip-button" id="intro-skip-button" type="button">홈페이지로 건너뛰기</button>
+      </div>
+      <div class="site-intro-progress" aria-hidden="true"><span id="site-intro-progress-bar"></span></div>
+    </section>
+
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
 
     <div class="app-shell">
@@ -55,6 +77,13 @@
               />
               <span class="hero-mascot-orbit orbit-one"></span>
               <span class="hero-mascot-orbit orbit-two"></span>
+              <span class="mascot-face-motion" aria-hidden="true">
+                <span class="mascot-eyelid mascot-eyelid-left"></span>
+                <span class="mascot-eyelid mascot-eyelid-right"></span>
+                <span class="mascot-cheek mascot-cheek-left"></span>
+                <span class="mascot-cheek mascot-cheek-right"></span>
+                <span class="mascot-smile"></span>
+              </span>
             </div>
           </div>
 

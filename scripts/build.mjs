@@ -12,6 +12,7 @@ const sourceFiles = [
   { source: "assets/carrier-hvac-logo.png", output: "assets/carrier-hvac-logo.png" },
   { source: "assets/carrier-favicon.png", output: "assets/carrier-favicon.png" },
   { source: "assets/carrier-energy-mascot.png", output: "assets/carrier-energy-mascot.png" },
+  { source: "assets/videos/carrier-greenon-intro.mp4", output: "assets/videos/carrier-greenon-intro.mp4" },
   { source: "assets/rewards/starbucks-americano.jpg", output: "assets/rewards/starbucks-americano.jpg" },
   { source: "assets/rewards/starbucks-tumbler.jpg", output: "assets/rewards/starbucks-tumbler.jpg" },
   { source: "assets/rewards/sungsimdang-zero-cookie.jpg", output: "assets/rewards/sungsimdang-zero-cookie.jpg" },
