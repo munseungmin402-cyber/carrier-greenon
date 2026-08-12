@@ -24,10 +24,17 @@ const FAN_LEVELS = ["자동", "약풍", "중풍", "강풍"];
 // 화면에서 계속 바뀌는 값은 초기 데이터의 복사본으로 관리합니다.
 let airconState = { ...INITIAL_AIRCON_STATE };
 
-// 날씨 API를 불러오기 전이나 네트워크 오류 때 사용하는 서울 샘플 데이터입니다.
+// 광주광역시청 인근 중심 좌표를 한곳에서 관리해 다른 지역으로 바꾸기 쉽게 구성합니다.
+const WEATHER_LOCATION = Object.freeze({
+  name: "광주광역시",
+  latitude: 35.1595,
+  longitude: 126.8526,
+});
+
+// 날씨 API를 불러오기 전이나 네트워크 오류 때 사용하는 광주광역시 샘플 데이터입니다.
 // 실제 에어컨 상태와 달리 날씨는 공개 Open-Meteo API에서 갱신하며 API 키가 필요하지 않습니다.
 const SAMPLE_WEATHER_STATE = Object.freeze({
-  location: "서울",
+  location: WEATHER_LOCATION.name,
   temperature: 28,
   apparentTemperature: 29,
   humidity: 54,
@@ -37,7 +44,9 @@ const SAMPLE_WEATHER_STATE = Object.freeze({
 });
 const weatherConfig = window.GREENON_WEATHER_CONFIG || {};
 const WEATHER_API_URL = weatherConfig.apiUrl || "https://api.open-meteo.com/v1/forecast";
+const WEATHER_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 let weatherState = { ...SAMPLE_WEATHER_STATE };
+let weatherRefreshTimer = null;
 
 // 오늘의 미션 진행 상태와 목표 시간을 관리합니다.
 // 목표 시간과 보상은 Supabase의 활성 미션을 읽은 뒤 최신 값으로 바뀝니다.
@@ -361,12 +370,12 @@ function renderWeatherState() {
   weatherElements.location.textContent = `${weatherState.location}의 날씨`;
   weatherElements.temperature.textContent = `${Math.round(weatherState.temperature)}°`;
   weatherElements.summary.textContent = `${presentation.label} · 습도 ${Math.round(weatherState.humidity)}%`;
-  weatherElements.sourceBadge.textContent = hasLiveData ? "실시간 API" : "샘플 데이터";
+  weatherElements.sourceBadge.textContent = hasLiveData ? "실시간 날씨" : "샘플 데이터";
   weatherElements.sourceBadge.classList.toggle("is-live", hasLiveData);
   weatherElements.sourceBadge.classList.remove("is-loading");
   weatherElements.updatedTime.textContent = hasLiveData && weatherState.updatedAt
-    ? `${new Intl.DateTimeFormat("ko-KR", { hour: "2-digit", minute: "2-digit" }).format(weatherState.updatedAt)} 업데이트`
-    : "네트워크 오류 시 사용하는 서울 샘플";
+    ? `${new Intl.DateTimeFormat("ko-KR", { hour: "2-digit", minute: "2-digit" }).format(weatherState.updatedAt)} 관측 · 10분마다 갱신`
+    : "네트워크 오류 시 사용하는 광주광역시 샘플";
 
   weatherElements.card.classList.toggle("is-alert", recommendation.isAlert);
   weatherElements.missionGuide.classList.toggle("is-alert", recommendation.isAlert);
@@ -380,7 +389,7 @@ function renderWeatherState() {
 }
 
 /**
- * 서울 좌표의 현재 외부온도·체감온도·습도를 Open-Meteo에서 가져옵니다.
+ * 광주광역시 좌표의 현재 외부온도·체감온도·습도를 Open-Meteo에서 가져옵니다.
  * 8초 안에 응답하지 않거나 값이 올바르지 않으면 샘플 데이터로 안전하게 복구합니다.
  */
 async function loadCurrentWeather() {
@@ -391,8 +400,8 @@ async function loadCurrentWeather() {
   weatherElements.sourceBadge.classList.remove("is-live");
 
   const query = new URLSearchParams({
-    latitude: "37.5665",
-    longitude: "126.9780",
+    latitude: String(WEATHER_LOCATION.latitude),
+    longitude: String(WEATHER_LOCATION.longitude),
     current: "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code",
     timezone: "Asia/Seoul",
     forecast_days: "1",
@@ -417,14 +426,16 @@ async function loadCurrentWeather() {
     ];
     if (!values.every(Number.isFinite)) throw new Error("Weather API data is invalid");
 
+    // Open-Meteo가 반환한 광주 현지 관측 시각을 표시하고, 값이 없을 때만 현재 시각을 사용합니다.
+    const observedAt = current.time ? new Date(`${current.time}+09:00`) : new Date();
     weatherState = {
-      location: "서울",
+      location: WEATHER_LOCATION.name,
       temperature: current.temperature_2m,
       apparentTemperature: current.apparent_temperature,
       humidity: current.relative_humidity_2m,
       weatherCode: current.weather_code,
       source: "live",
-      updatedAt: new Date(),
+      updatedAt: Number.isNaN(observedAt.getTime()) ? new Date() : observedAt,
     };
   } catch (error) {
     console.warn("실시간 날씨를 불러오지 못해 샘플 데이터를 표시합니다.", error);
@@ -1834,7 +1845,7 @@ rewardElements.dialog.addEventListener("close", () => {
   rewardElements.dialog.classList.remove("has-warning");
 });
 
-// 사용자가 새로고침 버튼을 누르면 같은 공개 API에서 최신 서울 날씨를 다시 확인합니다.
+// 사용자가 새로고침 버튼을 누르면 같은 공개 API에서 최신 광주광역시 날씨를 다시 확인합니다.
 weatherElements.refreshButton.addEventListener("click", loadCurrentWeather);
 
 // 회원가입과 로그인 탭은 같은 MY 화면 안에서 필요한 폼만 보여 줍니다.
@@ -1852,6 +1863,7 @@ userElements.logoutButton.addEventListener("click", logoutUser);
 // 페이지가 닫힐 때 Auth 구독을 해제해 불필요한 이벤트 리스너가 남지 않게 합니다.
 window.addEventListener("pagehide", () => {
   authSubscription?.unsubscribe();
+  window.clearInterval(weatherRefreshTimer);
 });
 
 // 주소에 #mission처럼 화면 이름이 있으면 새로고침 후에도 해당 화면을 보여 줍니다.
@@ -1868,4 +1880,6 @@ renderMissionState();
 switchAuthMode(authMode);
 renderMyPage();
 loadCurrentWeather();
+// 앱을 계속 열어 둔 경우에도 광주광역시 현재 날씨가 오래된 값으로 남지 않게 자동 갱신합니다.
+weatherRefreshTimer = window.setInterval(loadCurrentWeather, WEATHER_REFRESH_INTERVAL_MS);
 initializeSupabaseAuth();

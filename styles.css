@@ -104,50 +104,17 @@ svg {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  min-width: 0;
   color: var(--blue-900);
   text-decoration: none;
 }
 
-.brand-mark {
-  display: grid;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  color: var(--white);
-  background: linear-gradient(145deg, var(--blue-500), var(--blue-700));
-  border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(15, 118, 110, 0.2);
-}
-
-.brand-mark svg {
-  width: 25px;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.8;
-}
-
-.brand strong,
-.brand small {
+.brand-logo {
   display: block;
-}
-
-.brand strong {
-  font-family: Nunito, Pretendard, sans-serif;
-  font-size: 17px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.brand small {
-  margin-top: 1px;
-  color: var(--blue-500);
-  font-family: Nunito, sans-serif;
-  font-size: 8px;
-  font-weight: 800;
-  letter-spacing: 0.18em;
+  width: clamp(190px, 58vw, 260px);
+  height: auto;
+  border-radius: 8px;
+  mix-blend-mode: multiply;
 }
 
 .notification-button {

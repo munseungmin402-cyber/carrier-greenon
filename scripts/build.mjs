@@ -9,6 +9,7 @@ const sourceFiles = [
   { source: "index.html", output: "index.html" },
   { source: "styles.css", output: "greenon-styles.css" },
   { source: "app.js", output: "app.js" },
+  { source: "assets/carrier-hvac-logo.png", output: "assets/carrier-hvac-logo.png" },
 ];
 
 function requireEnvironmentVariable(name) {
@@ -43,7 +44,9 @@ await rm(outputDirectory, { recursive: true, force: true });
 await mkdir(outputDirectory, { recursive: true });
 
 for (const { source, output } of sourceFiles) {
-  await copyFile(join(projectRoot, source), join(outputDirectory, output));
+  const destination = join(outputDirectory, output);
+  await mkdir(dirname(destination), { recursive: true });
+  await copyFile(join(projectRoot, source), destination);
 }
 
 const browserConfig = `// production 빌드가 환경변수에서 생성한 공개 클라이언트 설정입니다.\nwindow.GREENON_SUPABASE_CONFIG = Object.freeze(${JSON.stringify({
