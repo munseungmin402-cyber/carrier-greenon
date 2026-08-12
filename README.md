@@ -8,9 +8,9 @@ Carrier 에어컨 사용자를 위한 ESG 친환경 냉방 미션·GREEN POINT·
 - 가상 에어컨 상태 및 오류·필터 경고 시뮬레이션
 - 26~28°C GREEN MISSION 참여와 진행 기록
 - 미션 성공 포인트 지급과 GREEN WALLET 내역
-- GREEN REWARD SHOP 포인트 구매와 구매내역
+- 스타벅스·성심당·Oral-B·Carrier 실제 제품 사진을 적용한 GREEN REWARD SHOP
 - Supabase Auth, 사용자별 데이터 분리, RLS 보호
-- 모바일 우선 White + Blue 반응형 UI
+- Carrier Navy·Steel Blue 기반의 입체적인 모바일 우선 반응형 UI
 
 ## 기술 구성
 

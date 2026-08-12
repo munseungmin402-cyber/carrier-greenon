@@ -67,9 +67,32 @@ let walletState = {
 };
 let walletFilter = "all";
 
-// 상품 원본은 Supabase rewards 테이블에서 읽습니다.
-// emoji는 외부 이미지 API 없이도 상품을 구분하도록 DB에 함께 저장합니다.
+// 상품 이름·설명·가격은 Supabase rewards 테이블에서 읽습니다.
+// 사진은 배포 안정성을 위해 확인한 원본을 프로젝트 자산으로 보관하고 visual 코드와 연결합니다.
 let rewardProducts = [];
+
+const REWARD_PRODUCT_IMAGES = Object.freeze({
+  coffee: Object.freeze({
+    src: "assets/rewards/starbucks-americano.jpg",
+    alt: "스타벅스 아이스 카페 아메리카노 Tall 제품 사진",
+  }),
+  tumbler: Object.freeze({
+    src: "assets/rewards/starbucks-tumbler.jpg",
+    alt: "스타벅스 그린 텀블러 473ml 제품 사진",
+  }),
+  cookie: Object.freeze({
+    src: "assets/rewards/sungsimdang-zero-cookie.jpg",
+    alt: "성심당 제로쿠키 18개입 제품 사진",
+  }),
+  brush: Object.freeze({
+    src: "assets/rewards/oral-b-io10.png",
+    alt: "Oral-B iO Series 10 전동칫솔 제품 사진",
+  }),
+  fan: Object.freeze({
+    src: "assets/rewards/carrier-circulator.jpg",
+    alt: "캐리어 클라윈드 서큘레이터 KRFT-E006PRAW 제품 사진",
+  }),
+});
 
 let rewardCategory = "ALL";
 let rewardOrders = [];
@@ -217,6 +240,7 @@ const rewardElements = {
   orderEmpty: document.querySelector("#reward-order-empty"),
   dialog: document.querySelector("#reward-detail-dialog"),
   dialogArt: document.querySelector("#reward-dialog-art"),
+  dialogImage: document.querySelector("#reward-dialog-image"),
   dialogEmoji: document.querySelector("#reward-dialog-emoji"),
   dialogCategory: document.querySelector("#reward-dialog-category"),
   dialogTitle: document.querySelector("#reward-dialog-title"),
@@ -1128,7 +1152,7 @@ function renderWallet() {
 
 /**
  * 선택한 카테고리에 맞는 리워드 상품 카드를 만듭니다.
- * 실제 상품 이미지 대신 emoji와 CSS 배경을 사용해 외부 API 없이 동작합니다.
+ * 등록된 제품 사진이 없을 때만 DB의 emoji를 대체 이미지로 사용합니다.
  */
 function renderRewardShop() {
   const visibleProducts = rewardProducts.filter(
@@ -1150,7 +1174,8 @@ function renderRewardShop() {
     const card = document.createElement("article");
     const art = document.createElement("div");
     const tag = document.createElement("span");
-    const emoji = document.createElement("span");
+    const productImage = REWARD_PRODUCT_IMAGES[product.visual];
+    const media = document.createElement(productImage ? "img" : "span");
     const content = document.createElement("div");
     const category = document.createElement("span");
     const name = document.createElement("h3");
@@ -1163,9 +1188,17 @@ function renderRewardShop() {
     art.className = `reward-product-art visual-${product.visual}`;
     tag.className = "reward-product-tag";
     tag.textContent = product.tag;
-    emoji.className = "reward-product-emoji";
-    emoji.textContent = product.emoji;
-    emoji.setAttribute("aria-hidden", "true");
+    if (productImage) {
+      media.className = "reward-product-image";
+      media.src = productImage.src;
+      media.alt = productImage.alt;
+      media.loading = "lazy";
+      media.decoding = "async";
+    } else {
+      media.className = "reward-product-emoji";
+      media.textContent = product.emoji;
+      media.setAttribute("aria-hidden", "true");
+    }
     content.className = "reward-product-content";
     category.className = "reward-product-category";
     category.textContent = product.category;
@@ -1178,7 +1211,7 @@ function renderRewardShop() {
     detailButton.setAttribute("aria-label", `${product.name} 상세 보기`);
     detailButton.textContent = "상세 보기";
 
-    art.append(tag, emoji);
+    art.append(tag, media);
     footer.append(price, detailButton);
     content.append(category, name, footer);
     card.append(art, content);
@@ -1238,7 +1271,20 @@ function openRewardDetail(productId) {
   selectedRewardId = product.id;
   rewardElements.dialog.classList.remove("has-warning");
   rewardElements.dialogArt.className = `reward-dialog-art visual-${product.visual}`;
-  rewardElements.dialogEmoji.textContent = product.emoji;
+  const productImage = REWARD_PRODUCT_IMAGES[product.visual];
+
+  if (productImage) {
+    rewardElements.dialogImage.src = productImage.src;
+    rewardElements.dialogImage.alt = productImage.alt;
+    rewardElements.dialogImage.hidden = false;
+    rewardElements.dialogEmoji.hidden = true;
+  } else {
+    rewardElements.dialogImage.removeAttribute("src");
+    rewardElements.dialogImage.alt = "";
+    rewardElements.dialogImage.hidden = true;
+    rewardElements.dialogEmoji.hidden = false;
+    rewardElements.dialogEmoji.textContent = product.emoji;
+  }
   rewardElements.dialogCategory.textContent = product.category;
   rewardElements.dialogTitle.textContent = product.name;
   rewardElements.dialogDescription.textContent = product.description;
