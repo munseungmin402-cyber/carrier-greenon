@@ -268,6 +268,18 @@ main {
   line-height: 1.7;
 }
 
+/* 작은 휴대폰에서도 긴 한글 인사말이 카드 밖으로 잘리지 않도록 줄바꿈 폭을 보장합니다. */
+@media (max-width: 420px) {
+  .hero-copy {
+    min-width: 0;
+  }
+
+  .hero-card h1 {
+    font-size: clamp(30px, 8.6vw, 34px);
+    overflow-wrap: anywhere;
+  }
+}
+
 .earth-illustration {
   position: absolute;
   z-index: 1;
