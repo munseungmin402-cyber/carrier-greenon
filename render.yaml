@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: carrier-greenon
+    runtime: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 24.19.0
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: WEATHER_API_URL
+        value: https://api.open-meteo.com/v1/forecast
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: geolocation=(), camera=(), microphone=()
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

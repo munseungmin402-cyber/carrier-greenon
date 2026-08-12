@@ -1,0 +1,25 @@
+# 의존성 및 production 산출물
+node_modules/
+dist/
+
+# 실제 환경변수 파일은 Git에 포함하지 않습니다.
+.env
+.env.*
+!.env.example
+
+# 로그와 운영체제 임시 파일
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 개발 지시용 원본 프롬프트는 배포 저장소에서 제외합니다.
+\# 에어컨 리워드 웹앱 프롬프트.txt
+
+# 브라우저 자동 검증 임시 산출물
+.phase*-chrome-profile*/
+.phase*-profile*/
+.phase*.html
+.phase*.png
+.phase*.txt

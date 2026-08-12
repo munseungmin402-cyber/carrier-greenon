@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="친환경 냉방 미션으로 지구와 포인트를 함께 지키는 Carrier GreenON"
+    />
+    <meta name="theme-color" content="#f7fbff" />
+    <title>Carrier GreenON</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+
+    <div class="app-shell">
+      <header class="topbar" aria-label="상단 메뉴">
+        <a class="brand" href="#home" aria-label="Carrier GreenON 홈">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img">
+              <path d="M12.3 3.4c4.5.3 7.7 3.3 8.3 7.8-4.2.6-7.3-.4-9.4-3.1-1.2 4-3.9 6.7-7.9 8.2-.5-5.9 2.8-10 9-12.9Z" />
+              <path d="M5.2 19.6c3.2-4.7 7.3-7.5 12.2-8.4" />
+            </svg>
+          </span>
+          <span>
+            <strong>Carrier GreenON</strong>
+            <small>COOL &amp; GREEN LIFE</small>
+          </span>
+        </a>
+
+        <button class="notification-button" type="button" aria-label="알림, 새로운 알림 없음">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" />
+          </svg>
+        </button>
+      </header>
+
+      <main id="main-content" tabindex="-1">
+        <section class="page-view is-active" id="home-view" data-view="home" aria-labelledby="home-title">
+          <div class="hero-card">
+            <div class="hero-copy">
+              <p class="eyebrow"><span aria-hidden="true">●</span> 오늘도 시원하게, 지구는 가볍게</p>
+              <h1 id="home-title">안녕하세요!<br /><strong>GREEN한 하루</strong>를 시작해요.</h1>
+              <p class="hero-description">에어컨을 똑똑하게 사용하고 친환경 리워드를 모아보세요.</p>
+            </div>
+
+            <div class="earth-illustration" aria-hidden="true">
+              <span class="orbit orbit-one"></span>
+              <span class="orbit orbit-two"></span>
+              <div class="earth">
+                <span class="land land-one"></span>
+                <span class="land land-two"></span>
+                <span class="face">˘‿˘</span>
+              </div>
+              <span class="spark spark-one">✦</span>
+              <span class="spark spark-two">✦</span>
+              <span class="leaf">◆</span>
+            </div>
+          </div>
+
+          <section class="overview-section" aria-labelledby="overview-title">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">GREEN STATUS</p>
+                <h2 id="overview-title">오늘의 우리 집</h2>
+              </div>
+              <span class="sample-badge" id="weather-source-badge">샘플 데이터</span>
+            </div>
+
+            <div class="status-grid">
+              <article class="status-card weather-card" id="weather-card" aria-live="polite">
+                <div class="card-icon weather-icon" aria-hidden="true">
+                  <span id="weather-symbol">☀</span>
+                </div>
+                <div class="status-card-copy">
+                  <p id="weather-location">서울의 날씨</p>
+                  <strong id="weather-temperature">28°</strong>
+                  <span id="weather-summary">맑음 · 습도 54%</span>
+                  <small id="weather-updated-time">샘플 날씨 준비 중</small>
+                </div>
+                <button class="weather-refresh-button" id="weather-refresh-button" type="button" aria-label="현재 날씨 새로고침">↻</button>
+              </article>
+
+              <article class="status-card aircon-card" id="home-aircon-card">
+                <div class="card-icon aircon-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="10" rx="2" />
+                    <path d="M7 11h10M8 18c1-1 1-2 1-3M12 19c1-1 1-3 1-4M16 18c1-1 1-2 1-3" />
+                  </svg>
+                </div>
+                <div>
+                  <p>우리 집 에어컨</p>
+                  <strong id="home-aircon-summary">정상 운전</strong>
+                  <span id="home-aircon-detail">냉방 26° · 자동풍</span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="mission-preview" aria-labelledby="mission-preview-title">
+            <div class="mission-decoration" aria-hidden="true">
+              <span class="mini-leaf leaf-left">◆</span>
+              <span class="mission-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 3h6M10 3v3M14 3v3M7 8h10v12H7z" />
+                  <path d="m9.5 13 1.7 1.7 3.6-4" />
+                </svg>
+              </span>
+              <span class="mini-leaf leaf-right">◆</span>
+            </div>
+            <div class="mission-copy">
+              <p class="section-kicker">TODAY'S GREEN MISSION</p>
+              <h2 id="mission-preview-title">26~28°C 에너지 세이브 냉방</h2>
+              <p id="home-mission-description">미션에 참여하고 친환경 냉방 습관을 만들어 보세요.</p>
+              <div class="home-mission-progress" aria-hidden="true"><span id="home-mission-progress-bar"></span></div>
+              <small class="home-mission-status" id="home-mission-status">참여 전 · 0%</small>
+            </div>
+            <button class="primary-button" type="button" data-go-view="mission">
+              <span id="home-mission-button-label">오늘의 미션 보기</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+            </button>
+          </section>
+
+          <section class="quick-guide" aria-labelledby="guide-title">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">HOW IT WORKS</p>
+                <h2 id="guide-title">GreenON을 즐기는 방법</h2>
+              </div>
+            </div>
+            <ol class="guide-list">
+              <li><span>1</span><strong>미션 참여</strong><small>오늘의 친환경 냉방 습관을 선택해요.</small></li>
+              <li><span>2</span><strong>조건 달성</strong><small>가상 에어컨으로 미션을 진행해요.</small></li>
+              <li><span>3</span><strong>리워드 받기</strong><small>GREEN POINT로 원하는 혜택을 만나요.</small></li>
+            </ol>
+          </section>
+        </section>
+
+        <section class="page-view aircon-view" id="mission-view" data-view="mission" aria-labelledby="mission-title" hidden>
+          <div class="view-heading">
+            <div>
+              <p class="section-kicker">TODAY'S GREEN CHALLENGE</p>
+              <h1 id="mission-title">GREEN MISSION</h1>
+              <p>가상 에어컨 데이터로 오늘의 친환경 냉방 습관에 도전해요.</p>
+            </div>
+            <span class="simulation-badge"><span aria-hidden="true"></span> SIMULATION</span>
+          </div>
+
+          <section class="today-mission-card" id="today-mission-card" aria-labelledby="today-mission-title">
+            <div class="mission-card-topline">
+              <span class="mission-state-badge" id="mission-state-badge">참여 전</span>
+              <span class="mission-reward-preview" id="mission-reward-preview">
+                <strong id="mission-reward-points">+300 P</strong>
+                <small id="mission-reward-label">성공 예정 리워드</small>
+              </span>
+            </div>
+
+            <div class="mission-main-copy">
+              <span class="today-mission-icon" id="today-mission-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M6 18h12M8 18v3M16 18v3" /><path d="M8 12a4 4 0 0 1 8 0v6H8z" /></svg>
+              </span>
+              <div>
+                <p class="section-kicker">MISSION 01 · COOL SMART</p>
+                <h2 id="today-mission-title">26~28°C 에너지 세이브 냉방</h2>
+                <p>에어컨을 냉방 모드와 권장온도로 설정하고 2시간 동안 쾌적하게 유지해 보세요.</p>
+              </div>
+            </div>
+
+            <aside class="weather-mission-guide" id="weather-mission-guide" aria-labelledby="weather-mission-title">
+              <span id="weather-mission-badge">날씨 맞춤 미션</span>
+              <div>
+                <strong id="weather-mission-title">더운 날 절전 냉방을 준비했어요</strong>
+                <p id="weather-mission-description">외부온도와 습도에 맞춰 오늘의 미션 안내가 달라집니다.</p>
+              </div>
+            </aside>
+
+            <div class="mission-condition-list" aria-label="미션 달성 조건">
+              <div class="mission-condition is-met" data-mission-condition="power">
+                <span aria-hidden="true">✓</span><div><strong>전원 ON</strong><small>에어컨 켜기</small></div>
+              </div>
+              <div class="mission-condition is-met" data-mission-condition="mode">
+                <span aria-hidden="true">✓</span><div><strong>냉방 모드</strong><small>COOL 유지</small></div>
+              </div>
+              <div class="mission-condition is-met" data-mission-condition="temperature">
+                <span aria-hidden="true">✓</span><div><strong>26~28°C</strong><small>권장온도 유지</small></div>
+              </div>
+              <div class="mission-condition is-met" data-mission-condition="device">
+                <span aria-hidden="true">✓</span><div><strong>기기 정상</strong><small>필터·센서 확인</small></div>
+              </div>
+            </div>
+
+            <div class="mission-progress-area">
+              <div class="mission-progress-heading">
+                <span>미션 진행률</span>
+                <strong><span id="mission-elapsed-time">0분</span> / 2시간</strong>
+              </div>
+              <div
+                class="mission-progress-track"
+                id="mission-progress-track"
+                role="progressbar"
+                aria-label="미션 진행률"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+              >
+                <span id="mission-progress-bar"></span>
+              </div>
+              <div class="mission-progress-scale" aria-hidden="true"><span>0</span><span>30분</span><span>1시간</span><span>1시간 30분</span><span>2시간</span></div>
+            </div>
+
+            <div class="mission-feedback" id="mission-feedback" role="status" aria-live="polite">
+              <span class="mission-feedback-icon" id="mission-feedback-icon" aria-hidden="true">i</span>
+              <span><strong id="mission-feedback-title">미션 참여 준비 완료</strong><small id="mission-feedback-message">현재 모든 조건을 만족하고 있어요.</small></span>
+            </div>
+
+            <div class="mission-actions">
+              <button class="mission-start-button" id="mission-start-button" type="button" data-mission-action="start">미션 참여하기</button>
+              <button class="mission-time-button" id="mission-time-button" type="button" data-mission-action="advance" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+                시간 +30분
+              </button>
+              <button class="mission-wallet-button" id="mission-wallet-button" type="button" data-go-view="wallet" hidden>
+                GREEN WALLET에서 확인
+              </button>
+            </div>
+          </section>
+
+          <div class="aircon-section-heading">
+            <div><p class="section-kicker">MISSION DEVICE</p><h2>미션용 가상 에어컨</h2></div>
+            <p>미션 참여 후 설정을 바꾸면 조건을 즉시 다시 확인해요.</p>
+          </div>
+
+          <div class="aircon-layout">
+            <section class="aircon-device-card" id="aircon-device-card" aria-labelledby="device-name">
+              <div class="device-visual" aria-hidden="true">
+                <div class="device-unit">
+                  <span class="carrier-label">Carrier</span>
+                  <span class="device-display" id="device-display">26°</span>
+                  <span class="device-vent"></span>
+                </div>
+                <span class="air-flow air-flow-one"></span>
+                <span class="air-flow air-flow-two"></span>
+                <span class="air-flow air-flow-three"></span>
+              </div>
+
+              <div class="device-copy">
+                <div class="device-title-row">
+                  <div>
+                    <p>거실</p>
+                    <h2 id="device-name">Carrier All New 에어로 18단</h2>
+                  </div>
+                  <span class="power-badge" id="power-badge"><span aria-hidden="true"></span> POWER ON</span>
+                </div>
+
+                <div class="condition-banner" id="condition-banner" role="status" aria-live="polite">
+                  <span class="condition-icon" id="condition-icon" aria-hidden="true">✓</span>
+                  <span><strong id="condition-title">정상 운전 중</strong><small id="condition-message">모든 상태가 정상이에요.</small></span>
+                </div>
+              </div>
+            </section>
+
+            <section class="aircon-status-panel" aria-labelledby="status-panel-title">
+              <div class="panel-heading">
+                <div>
+                  <p class="section-kicker">LIVE STATUS</p>
+                  <h2 id="status-panel-title">현재 상태</h2>
+                </div>
+                <span class="updated-time" id="updated-time">방금 업데이트</span>
+              </div>
+
+              <dl class="aircon-stats">
+                <div class="aircon-stat">
+                  <dt>POWER</dt>
+                  <dd id="power-value">ON</dd>
+                  <span class="stat-dot" aria-hidden="true"></span>
+                </div>
+                <div class="aircon-stat">
+                  <dt>MODE</dt>
+                  <dd id="mode-value">냉방</dd>
+                  <small>COOL</small>
+                </div>
+                <div class="aircon-stat">
+                  <dt>설정온도</dt>
+                  <dd><span id="temperature-value">26</span>°</dd>
+                  <small>권장 26~28°</small>
+                </div>
+                <div class="aircon-stat">
+                  <dt>FAN</dt>
+                  <dd id="fan-value">자동</dd>
+                  <small>AUTO</small>
+                </div>
+                <div class="aircon-stat">
+                  <dt>사용시간</dt>
+                  <dd id="usage-value">1시간 30분</dd>
+                  <small>오늘 누적</small>
+                </div>
+                <div class="aircon-stat filter-stat" id="filter-stat">
+                  <dt>필터 상태</dt>
+                  <dd><span id="filter-value">92</span>%</dd>
+                  <div class="filter-track" aria-hidden="true"><span id="filter-gauge"></span></div>
+                </div>
+              </dl>
+            </section>
+          </div>
+
+          <section class="simulation-panel" aria-labelledby="simulation-title">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">STATUS SIMULATOR</p>
+                <h2 id="simulation-title">상태 시뮬레이션</h2>
+              </div>
+              <button class="text-button" type="button" data-aircon-action="reset">초기화</button>
+            </div>
+            <p class="panel-description">버튼을 눌러 가상 에어컨 상태와 정상·비정상 UI 변화를 확인해 보세요.</p>
+
+            <div class="control-grid">
+              <article class="control-card">
+                <div><span class="control-number">01</span><h3>전원</h3><p>가상 기기를 켜고 꺼요.</p></div>
+                <button class="control-button power-control is-on" id="power-control" type="button" data-aircon-action="power" aria-pressed="true">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0" /></svg>
+                  <span>ON</span>
+                </button>
+              </article>
+
+              <article class="control-card">
+                <div><span class="control-number">02</span><h3>운전 모드</h3><p>냉방·제습·송풍을 바꿔요.</p></div>
+                <button class="control-button wide-control" type="button" data-aircon-action="mode">
+                  <span id="mode-control-label">냉방</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4" /></svg>
+                </button>
+              </article>
+
+              <article class="control-card temperature-control-card">
+                <div><span class="control-number">03</span><h3>설정온도</h3><p>18°에서 30°까지 설정해요.</p></div>
+                <div class="stepper" aria-label="설정온도 조절">
+                  <button type="button" data-aircon-action="temperature-down" aria-label="설정온도 1도 낮추기">−</button>
+                  <strong><span id="temperature-control-value">26</span>°</strong>
+                  <button type="button" data-aircon-action="temperature-up" aria-label="설정온도 1도 높이기">＋</button>
+                </div>
+              </article>
+
+              <article class="control-card">
+                <div><span class="control-number">04</span><h3>바람 세기</h3><p>자동부터 강풍까지 바꿔요.</p></div>
+                <button class="control-button wide-control" type="button" data-aircon-action="fan">
+                  <span id="fan-control-label">자동</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4" /></svg>
+                </button>
+              </article>
+
+              <article class="control-card">
+                <div><span class="control-number">05</span><h3>사용시간</h3><p>30분의 운전 시간을 더해요.</p></div>
+                <button class="control-button wide-control" type="button" data-aircon-action="add-time">+ 30분</button>
+              </article>
+
+              <article class="control-card danger-control-card">
+                <div><span class="control-number">06</span><h3>비정상 상태 테스트</h3><p>필터 저하와 센서 오류를 확인해요.</p></div>
+                <div class="danger-actions">
+                  <button type="button" data-aircon-action="filter-wear">필터 -25%</button>
+                  <button type="button" data-aircon-action="sensor-error" id="sensor-control" aria-pressed="false">센서 오류</button>
+                </div>
+              </article>
+            </div>
+
+            <p class="simulation-announcement" id="simulation-announcement" aria-live="polite">시뮬레이션을 시작할 준비가 됐어요.</p>
+          </section>
+
+          <section class="next-phase-card" aria-labelledby="next-phase-title">
+            <span class="next-phase-icon" aria-hidden="true">♧</span>
+            <div>
+              <p class="section-kicker">GREEN REWARD SHOP · NOW OPEN</p>
+              <h2 id="next-phase-title">성공 포인트로 친환경 리워드를 만나보세요</h2>
+              <p>하단 리워드 메뉴에서 상품을 살펴보고 포인트로 구매할 수 있어요.</p>
+            </div>
+          </section>
+        </section>
+
+        <section class="page-view wallet-view" id="wallet-view" data-view="wallet" aria-labelledby="wallet-title" hidden>
+          <div class="view-heading wallet-heading">
+            <div>
+              <p class="section-kicker">MY GREEN POINT</p>
+              <h1 id="wallet-title">GREEN WALLET</h1>
+              <p>지구를 위한 작은 실천이 GREEN POINT로 차곡차곡 쌓여요.</p>
+            </div>
+            <span class="temporary-data-badge">Supabase 저장</span>
+          </div>
+
+          <section class="wallet-balance-card" aria-labelledby="wallet-balance-title">
+            <div class="wallet-brand-row">
+              <span class="wallet-chip" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12.3 3.4c4.5.3 7.7 3.3 8.3 7.8-4.2.6-7.3-.4-9.4-3.1-1.2 4-3.9 6.7-7.9 8.2-.5-5.9 2.8-10 9-12.9Z" /><path d="M5.2 19.6c3.2-4.7 7.3-7.5 12.2-8.4" /></svg>
+              </span>
+              <span class="wallet-card-label">Carrier GreenON</span>
+              <span class="wallet-card-number">GREEN · 01</span>
+            </div>
+            <div class="wallet-balance-copy">
+              <p id="wallet-balance-title">현재 GREEN POINT</p>
+              <strong><span id="wallet-balance" aria-live="polite">0</span> P</strong>
+              <small id="wallet-balance-message">미션을 완료하면 포인트가 적립돼요.</small>
+            </div>
+            <div class="wallet-orbit" aria-hidden="true"><span>G</span></div>
+            <span class="wallet-spark wallet-spark-one" aria-hidden="true">✦</span>
+            <span class="wallet-spark wallet-spark-two" aria-hidden="true">✦</span>
+          </section>
+
+          <div class="wallet-summary-grid" aria-label="포인트 요약">
+            <article class="wallet-summary-card earned-summary">
+              <span class="summary-icon" aria-hidden="true">＋</span>
+              <div><p>누적 적립</p><strong><span id="wallet-earned-total">0</span> P</strong></div>
+            </article>
+            <article class="wallet-summary-card used-summary">
+              <span class="summary-icon" aria-hidden="true">−</span>
+              <div><p>누적 사용</p><strong><span id="wallet-used-total">0</span> P</strong></div>
+            </article>
+          </div>
+
+          <section class="point-history-card" aria-labelledby="point-history-title">
+            <div class="history-heading">
+              <div><p class="section-kicker">POINT HISTORY</p><h2 id="point-history-title">포인트 이용내역</h2></div>
+              <span id="transaction-count">0건</span>
+            </div>
+
+            <div class="history-tabs" role="tablist" aria-label="포인트 내역 필터">
+              <button class="history-tab is-active" type="button" role="tab" data-wallet-filter="all" aria-selected="true">전체</button>
+              <button class="history-tab" type="button" role="tab" data-wallet-filter="earn" aria-selected="false">적립</button>
+              <button class="history-tab" type="button" role="tab" data-wallet-filter="use" aria-selected="false">사용</button>
+            </div>
+
+            <ul class="transaction-list" id="transaction-list" aria-live="polite"></ul>
+
+            <div class="wallet-empty-state" id="wallet-empty-state">
+              <span aria-hidden="true">P</span>
+              <strong id="wallet-empty-title">아직 포인트 내역이 없어요</strong>
+              <p id="wallet-empty-message">GREEN MISSION을 성공하면 첫 적립 기록이 생겨요.</p>
+              <button class="secondary-button" id="wallet-empty-action" type="button" data-go-view="mission">미션 도전하기</button>
+            </div>
+          </section>
+
+          <aside class="wallet-data-notice">
+            <span aria-hidden="true">i</span>
+            <p><strong>GREEN POINT는 사용자별로 안전하게 저장돼요.</strong> 새로고침하거나 다른 기기에서 로그인해도 내역을 다시 확인할 수 있습니다.</p>
+          </aside>
+        </section>
+
+        <section class="page-view reward-view" id="reward-view" data-view="reward" aria-labelledby="reward-title" hidden>
+          <div class="view-heading reward-heading">
+            <div>
+              <p class="section-kicker">POINTS MAKE GREEN LIFE</p>
+              <h1 id="reward-title">GREEN REWARD SHOP</h1>
+              <p>친환경 미션으로 모은 포인트를 기분 좋은 리워드로 바꿔보세요.</p>
+            </div>
+            <span class="temporary-data-badge">Supabase 상품</span>
+          </div>
+
+          <section class="shop-hero-card" aria-labelledby="shop-hero-title">
+            <div>
+              <p class="section-kicker">MY SHOPPING POINT</p>
+              <h2 id="shop-hero-title">작은 실천이<br /><strong>즐거운 리워드</strong>가 돼요.</h2>
+              <p>상품은 Supabase에서 불러오고 구매내역과 포인트 차감은 한 번에 안전하게 저장됩니다.</p>
+            </div>
+            <div class="shop-point-balance">
+              <span>사용 가능 포인트</span>
+              <strong><span id="shop-point-balance">0</span> P</strong>
+              <button type="button" data-go-view="wallet">지갑 보기</button>
+            </div>
+            <div class="shop-gift" aria-hidden="true"><span>♧</span><i></i></div>
+          </section>
+
+          <section class="reward-products-section" aria-labelledby="reward-products-title">
+            <div class="reward-section-heading">
+              <div><p class="section-kicker">GREEN PICKS</p><h2 id="reward-products-title">리워드 상품</h2></div>
+              <span id="reward-product-count">6개 상품</span>
+            </div>
+
+            <div class="reward-category-tabs" role="tablist" aria-label="리워드 카테고리">
+              <button class="reward-category-tab is-active" type="button" role="tab" data-reward-category="ALL" aria-selected="true">전체</button>
+              <button class="reward-category-tab" type="button" role="tab" data-reward-category="FOOD" aria-selected="false">FOOD</button>
+              <button class="reward-category-tab" type="button" role="tab" data-reward-category="LIFE" aria-selected="false">LIFE</button>
+              <button class="reward-category-tab" type="button" role="tab" data-reward-category="CARRIER" aria-selected="false">CARRIER</button>
+            </div>
+
+            <div class="reward-product-grid" id="reward-product-grid" aria-live="polite"></div>
+          </section>
+
+          <section class="reward-orders-card" aria-labelledby="reward-orders-title">
+            <div class="reward-section-heading">
+              <div><p class="section-kicker">MY REWARD HISTORY</p><h2 id="reward-orders-title">구매내역</h2></div>
+              <span id="reward-order-count">0건</span>
+            </div>
+            <ul class="reward-order-list" id="reward-order-list" aria-live="polite"></ul>
+            <div class="reward-order-empty" id="reward-order-empty">
+              <span aria-hidden="true">♧</span>
+              <strong>아직 구매한 리워드가 없어요</strong>
+              <p>마음에 드는 상품의 상세 정보를 확인하고 GREEN POINT로 구매해 보세요.</p>
+            </div>
+          </section>
+        </section>
+
+        <section class="page-view my-view" id="my-view" data-view="my" aria-labelledby="my-title" hidden>
+          <div class="view-heading my-heading">
+            <div>
+              <p class="section-kicker">MY GREEN LIFE</p>
+              <h1 id="my-title">MY GREEN</h1>
+              <p>나의 친환경 냉방 활동과 성장 기록을 한눈에 확인해요.</p>
+            </div>
+            <span class="temporary-data-badge" id="auth-connection-badge">Supabase 연결 중</span>
+          </div>
+
+          <section class="auth-card" id="auth-card" aria-labelledby="auth-title">
+            <div class="auth-welcome">
+              <span class="auth-welcome-icon" aria-hidden="true">♧</span>
+              <p class="section-kicker">WELCOME TO GREENON</p>
+              <h2 id="auth-title">나만의 GREEN 기록을 시작해요</h2>
+              <p id="auth-welcome-description">Supabase Auth 연결 상태를 확인하고 있어요.</p>
+            </div>
+
+            <div class="auth-panel">
+              <div class="auth-tabs" role="tablist" aria-label="사용자 인증 방식">
+                <button class="auth-tab is-active" id="signup-tab" type="button" role="tab" data-auth-mode="signup" aria-selected="true" aria-controls="signup-form">회원가입</button>
+                <button class="auth-tab" id="login-tab" type="button" role="tab" data-auth-mode="login" aria-selected="false" aria-controls="login-form">로그인</button>
+              </div>
+
+              <form class="auth-form" id="signup-form" aria-labelledby="signup-tab" novalidate>
+                <label>
+                  <span>이름</span>
+                  <input id="signup-name" name="name" type="text" autocomplete="name" placeholder="그린이" minlength="2" required />
+                </label>
+                <label>
+                  <span>이메일</span>
+                  <input id="signup-email" name="email" type="email" autocomplete="email" placeholder="green@example.com" required />
+                </label>
+                <div class="auth-field-row">
+                  <label>
+                    <span>비밀번호</span>
+                    <input id="signup-password" name="password" type="password" autocomplete="new-password" placeholder="6자 이상" minlength="6" required />
+                  </label>
+                  <label>
+                    <span>비밀번호 확인</span>
+                    <input id="signup-password-confirm" name="passwordConfirm" type="password" autocomplete="new-password" placeholder="한 번 더 입력" minlength="6" required />
+                  </label>
+                </div>
+                <button class="auth-submit-button" type="submit">회원가입하고 시작하기</button>
+              </form>
+
+              <form class="auth-form" id="login-form" aria-labelledby="login-tab" novalidate hidden>
+                <label>
+                  <span>이메일</span>
+                  <input id="login-email" name="email" type="email" autocomplete="email" placeholder="가입한 이메일" required />
+                </label>
+                <label>
+                  <span>비밀번호</span>
+                  <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="비밀번호" required />
+                </label>
+                <button class="auth-submit-button" type="submit">로그인</button>
+              </form>
+
+              <div class="auth-feedback" id="auth-feedback" role="status" aria-live="polite" hidden>
+                <span id="auth-feedback-icon" aria-hidden="true">!</span>
+                <div><strong id="auth-feedback-title">입력 내용을 확인해 주세요</strong><small id="auth-feedback-message"></small></div>
+              </div>
+            </div>
+          </section>
+
+          <div class="my-dashboard" id="my-dashboard" hidden>
+            <section class="profile-hero-card" aria-labelledby="profile-name">
+              <div class="profile-avatar" aria-hidden="true"><span id="profile-initial">G</span></div>
+              <div class="profile-copy">
+                <p class="section-kicker">GREENON MEMBER</p>
+                <h2 id="profile-name">그린이 님</h2>
+                <p id="profile-email">green@example.com</p>
+              </div>
+              <div class="profile-level-badge">
+                <span>GREEN LEVEL</span>
+                <strong id="profile-level-name">SEED</strong>
+              </div>
+              <button class="logout-button" id="logout-button" type="button">로그아웃</button>
+            </section>
+
+            <section class="green-level-card" aria-labelledby="green-level-title">
+              <div class="level-visual" id="level-visual" aria-hidden="true">●</div>
+              <div class="level-content">
+                <p class="section-kicker">MY GREEN LEVEL</p>
+                <h2 id="green-level-title"><span id="green-level-name">SEED</span> 단계예요</h2>
+                <p id="green-level-message">첫 미션을 성공하고 작은 새싹을 틔워 보세요.</p>
+                <div class="level-progress-heading"><span id="level-progress-label">다음 LEAF까지</span><strong id="level-progress-points">0 / 300 P</strong></div>
+                <div class="level-progress-track" id="level-progress-track" role="progressbar" aria-label="GREEN LEVEL 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="level-progress-bar"></span></div>
+                <ol class="level-steps" aria-label="GREEN LEVEL 단계">
+                  <li class="is-current" data-green-level="SEED"><span>1</span><strong>SEED</strong><small>0 P</small></li>
+                  <li data-green-level="LEAF"><span>2</span><strong>LEAF</strong><small>300 P</small></li>
+                  <li data-green-level="TREE"><span>3</span><strong>TREE</strong><small>1,000 P</small></li>
+                </ol>
+              </div>
+            </section>
+
+            <section class="green-report-card" aria-labelledby="green-report-title">
+              <div class="report-heading">
+                <div><p class="section-kicker">MY GREEN REPORT</p><h2 id="green-report-title">GREEN REPORT</h2></div>
+                <span>현재 앱 활동 기준</span>
+              </div>
+              <div class="report-metrics">
+                <article><span aria-hidden="true">✓</span><div><strong id="report-mission-count">0</strong><small>성공 미션</small></div></article>
+                <article><span aria-hidden="true">P</span><div><strong id="report-earned-points">0 P</strong><small>누적 적립</small></div></article>
+                <article><span aria-hidden="true">♧</span><div><strong id="report-order-count">0</strong><small>친환경 리워드</small></div></article>
+                <article><span aria-hidden="true">⌁</span><div><strong id="report-cooling-time">0분</strong><small>미션 냉방 시간</small></div></article>
+              </div>
+              <div class="report-impact">
+                <span class="report-impact-icon" aria-hidden="true">≈</span>
+                <div><small>예상 에너지 절감 효과</small><strong><span id="report-energy-saving">0.0</span> kWh</strong><p>학습용 시뮬레이션 추정치이며 실제 측정 데이터가 아니에요.</p></div>
+              </div>
+              <div class="report-action-row">
+                <p id="report-summary">첫 GREEN MISSION을 완료하면 활동 리포트가 채워져요.</p>
+                <button class="secondary-button" type="button" data-go-view="mission">미션 도전하기</button>
+              </div>
+            </section>
+
+            <aside class="my-data-notice">
+              <span aria-hidden="true">i</span>
+              <p><strong>계정과 활동 데이터는 Supabase로 안전하게 관리됩니다.</strong> 미션·포인트·구매 리포트는 로그인한 사용자별로 분리됩니다.</p>
+            </aside>
+          </div>
+        </section>
+      </main>
+
+      <dialog class="reward-detail-dialog" id="reward-detail-dialog" aria-labelledby="reward-dialog-title">
+        <form method="dialog" class="reward-dialog-close-form">
+          <button type="submit" aria-label="상품 상세 닫기">×</button>
+        </form>
+        <div class="reward-dialog-art" id="reward-dialog-art" aria-hidden="true"><span class="reward-dialog-emoji" id="reward-dialog-emoji">☕</span></div>
+        <div class="reward-dialog-content">
+          <span class="reward-dialog-category" id="reward-dialog-category">FOOD</span>
+          <h2 id="reward-dialog-title">상품명</h2>
+          <p id="reward-dialog-description">상품 설명</p>
+
+          <dl class="reward-dialog-summary">
+            <div><dt>상품 가격</dt><dd><span id="reward-dialog-price">0</span> P</dd></div>
+            <div><dt>보유 포인트</dt><dd><span id="reward-dialog-balance">0</span> P</dd></div>
+          </dl>
+
+          <div class="purchase-feedback" id="purchase-feedback" role="status" aria-live="polite" hidden>
+            <span id="purchase-feedback-icon" aria-hidden="true">!</span>
+            <div><strong id="purchase-feedback-title">포인트를 확인해 주세요</strong><small id="purchase-feedback-message"></small></div>
+          </div>
+
+          <div class="reward-dialog-actions">
+            <form method="dialog"><button class="reward-dialog-cancel" type="submit">취소</button></form>
+            <button class="reward-purchase-button" id="reward-purchase-button" type="button">포인트로 구매하기</button>
+          </div>
+        </div>
+      </dialog>
+
+      <nav class="bottom-navigation" aria-label="주요 메뉴">
+        <button class="nav-item is-active" type="button" data-view-target="home" aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10h-6v-6H9v6H3z" /></svg>
+          <span>홈</span>
+        </button>
+        <button class="nav-item" type="button" data-view-target="mission">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6M10 4v3M14 4v3M6 7h12v14H6zM9 12h6M9 16h4" /></svg>
+          <span>미션</span>
+        </button>
+        <button class="nav-item" type="button" data-view-target="wallet">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h15v14H4zM4 9h15M15 14h5v4h-5z" /></svg>
+          <span>지갑</span>
+        </button>
+        <button class="nav-item" type="button" data-view-target="reward">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16l-1 12H5zM8 9a4 4 0 0 1 8 0" /></svg>
+          <span>리워드</span>
+        </button>
+        <button class="nav-item" type="button" data-view-target="my">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c.8-5 3.5-7 8-7s7.2 2 8 7" /></svg>
+          <span>MY</span>
+        </button>
+      </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.8/dist/umd/supabase.min.js" crossorigin="anonymous" defer></script>
+    <script src="supabase-config.js" defer></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>
