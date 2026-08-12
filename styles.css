@@ -260,6 +260,10 @@ main {
   font-weight: 800;
 }
 
+.mobile-title-break {
+  display: none;
+}
+
 .hero-description {
   max-width: 400px;
   margin: 0;
@@ -277,6 +281,10 @@ main {
   .hero-card h1 {
     font-size: clamp(30px, 8.6vw, 34px);
     overflow-wrap: anywhere;
+  }
+
+  .mobile-title-break {
+    display: inline;
   }
 }
 
