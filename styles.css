@@ -1,26 +1,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Pretendard:wght@400;500;600;700;800&display=swap");
 
 :root {
-  --blue-900: #073b74;
-  --blue-700: #075ead;
-  --blue-600: #0876d1;
-  --blue-500: #1593ee;
-  --blue-300: #83cfff;
-  --blue-100: #dff3ff;
-  --blue-50: #f3faff;
-  --green-600: #1d9c72;
-  --green-100: #daf7ec;
+  /* 전체 제품 테마: 차분한 Deep Slate 위에 맑은 Ice Emerald를 사용합니다. */
+  --blue-900: #173b42;
+  --blue-700: #245961;
+  --blue-600: #0f766e;
+  --blue-500: #14a894;
+  --blue-300: #83dfd2;
+  --blue-100: #d9f5ef;
+  --blue-50: #effaf7;
+  --green-600: #16856d;
+  --green-100: #d9f6eb;
+  /* 정상 운전 상태는 제품 테마와 구분되는 명확한 Blue로 표시합니다. */
+  --status-blue-700: #075ead;
+  --status-blue-600: #0876d1;
+  --status-blue-100: #dff3ff;
+  --status-blue-50: #f3faff;
   --red-700: #b42334;
   --red-600: #d83a4f;
   --red-100: #ffe1e5;
   --red-50: #fff5f6;
   --white: #ffffff;
-  --ink: #18334c;
-  --muted: #6c8194;
-  --line: #e1eef7;
-  --page: #f7fbff;
-  --shadow-sm: 0 8px 24px rgba(24, 90, 140, 0.08);
-  --shadow-md: 0 18px 50px rgba(18, 91, 148, 0.14);
+  --ink: #20363d;
+  --muted: #64787d;
+  --line: #d9e9e5;
+  --page: #f5fbf9;
+  --shadow-sm: 0 8px 24px rgba(28, 75, 73, 0.08);
+  --shadow-md: 0 18px 50px rgba(25, 91, 84, 0.14);
   --radius-lg: 28px;
   --radius-md: 22px;
   --radius-sm: 16px;
@@ -40,7 +46,7 @@ body {
   min-width: 320px;
   color: var(--ink);
   background:
-    radial-gradient(circle at 6% 8%, rgba(131, 207, 255, 0.18), transparent 24rem),
+    radial-gradient(circle at 6% 8%, rgba(131, 223, 210, 0.2), transparent 24rem),
     var(--page);
   font-family: Pretendard, "Noto Sans KR", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -91,7 +97,7 @@ svg {
   height: 76px;
   margin: 0 auto;
   padding: 0 20px;
-  background: rgba(247, 251, 255, 0.9);
+  background: rgba(245, 251, 249, 0.92);
   backdrop-filter: blur(18px);
 }
 
@@ -111,7 +117,7 @@ svg {
   color: var(--white);
   background: linear-gradient(145deg, var(--blue-500), var(--blue-700));
   border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(8, 118, 209, 0.2);
+  box-shadow: 0 8px 16px rgba(15, 118, 110, 0.2);
 }
 
 .brand-mark svg {
@@ -195,7 +201,7 @@ main {
   color: var(--white);
   background:
     radial-gradient(circle at 82% 24%, rgba(255, 255, 255, 0.25), transparent 12rem),
-    linear-gradient(145deg, #0b7bd2 0%, #16a8ed 58%, #7bd9f0 100%);
+    linear-gradient(145deg, #173b42 0%, #0f8f80 55%, #8be3d7 100%);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
@@ -524,8 +530,19 @@ main {
 }
 
 .aircon-icon {
-  color: var(--blue-600);
-  background: var(--blue-100);
+  color: var(--status-blue-600);
+  background: var(--status-blue-100);
+}
+
+.weather-card:not(.is-alert) .weather-icon,
+.aircon-card:not(.is-alert) .aircon-icon {
+  color: var(--status-blue-600);
+  background: var(--status-blue-100);
+}
+
+.aircon-card:not(.is-alert) strong,
+.aircon-card:not(.is-alert) span {
+  color: var(--status-blue-700);
 }
 
 .status-card p,
@@ -1444,7 +1461,7 @@ main {
   position: absolute;
   top: 15px;
   right: 20px;
-  color: var(--blue-600);
+  color: var(--status-blue-600);
   font-family: Nunito, sans-serif;
   font-size: 17px;
   font-weight: 800;
@@ -1520,8 +1537,8 @@ main {
   align-items: center;
   gap: 6px;
   padding: 7px 9px;
-  color: var(--blue-700);
-  background: var(--blue-100);
+  color: var(--status-blue-700);
+  background: var(--status-blue-100);
   border-radius: 999px;
   font-family: Nunito, sans-serif;
   font-size: 9px;
@@ -1531,7 +1548,7 @@ main {
 .power-badge span {
   width: 7px;
   height: 7px;
-  background: var(--blue-500);
+  background: var(--status-blue-600);
   border-radius: 50%;
 }
 
@@ -1550,9 +1567,9 @@ main {
   gap: 11px;
   margin-top: 18px;
   padding: 13px;
-  color: var(--blue-700);
-  background: var(--blue-50);
-  border: 1px solid var(--blue-100);
+  color: var(--status-blue-700);
+  background: var(--status-blue-50);
+  border: 1px solid var(--status-blue-100);
   border-radius: 16px;
 }
 
