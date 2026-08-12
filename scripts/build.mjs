@@ -5,7 +5,11 @@ import { fileURLToPath } from "node:url";
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(scriptDirectory, "..");
 const outputDirectory = resolve(projectRoot, "dist");
-const sourceFiles = ["index.html", "styles.css", "app.js"];
+const sourceFiles = [
+  { source: "index.html", output: "index.html" },
+  { source: "styles.css", output: "greenon-styles.css" },
+  { source: "app.js", output: "app.js" },
+];
 
 function requireEnvironmentVariable(name) {
   const value = process.env[name]?.trim();
@@ -38,8 +42,8 @@ if (dirname(outputDirectory) !== projectRoot || relative(projectRoot, outputDire
 await rm(outputDirectory, { recursive: true, force: true });
 await mkdir(outputDirectory, { recursive: true });
 
-for (const sourceFile of sourceFiles) {
-  await copyFile(join(projectRoot, sourceFile), join(outputDirectory, sourceFile));
+for (const { source, output } of sourceFiles) {
+  await copyFile(join(projectRoot, source), join(outputDirectory, output));
 }
 
 const browserConfig = `// production 빌드가 환경변수에서 생성한 공개 클라이언트 설정입니다.\nwindow.GREENON_SUPABASE_CONFIG = Object.freeze(${JSON.stringify({
@@ -49,5 +53,5 @@ const browserConfig = `// production 빌드가 환경변수에서 생성한 공�
   apiUrl: weatherApiUrl,
 }, null, 2)});\n`;
 
-await writeFile(join(outputDirectory, "supabase-config.js"), browserConfig, "utf8");
+await writeFile(join(outputDirectory, "greenon-config.js"), browserConfig, "utf8");
 console.log(`production build 완료: ${sourceFiles.length + 1}개 파일 → ${outputDirectory}`);
